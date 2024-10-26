@@ -1,21 +1,20 @@
 function resetForm() {
-  document.getElementById('a').value = '';
-  document.getElementById('b').value = '';
-  document.getElementById('c').value = '';
+  document.getElementById("a").value = "";
+  document.getElementById("b").value = "";
+  document.getElementById("c").value = "";
 
-  document.getElementById('x1').innerText = '';
-  document.getElementById('x2').innerText = '';
-  document.getElementById('message').innerText = '';
+  document.getElementById("x1").innerText = "";
+  document.getElementById("x2").innerText = "";
 }
 
 function bhaskara(a, b, c) {
-  const delta = (b**2) - (4 * a * c);
+  const delta = b ** 2 - 4 * a * c;
 
   if (delta < 0) {
-      return [null, null]; // Sem raízes reais
+    return [null, null]; // Sem raízes reais
   } else if (delta == 0) {
-      const x = -b / (2 * a);
-      return [x,x]; // Apenas 1 raiz real
+    const x = -b / (2 * a);
+    return [x, x]; // Apenas 1 raiz real
   }
 
   const x1 = (-b + Math.sqrt(delta)) / (2 * a);
@@ -25,23 +24,29 @@ function bhaskara(a, b, c) {
 }
 
 function main() {
-  document.getElementById('bhaskaraButton').addEventListener('click', () => {
-      const a = parseFloat(document.getElementById('a').value);
-      const b = parseFloat(document.getElementById('b').value);
-      const c = parseFloat(document.getElementById('c').value);
-      
-      const listValuesBhaskara = bhaskara(a, b, c);
-      const x1 = listValuesBhaskara[0];
-      const x2 = listValuesBhaskara[1];
+  document.getElementById("bhaskaraButton").addEventListener("click", () => {
+    const a = parseFloat(document.getElementById("a").value);
+    const b = parseFloat(document.getElementById("b").value);
+    const c = parseFloat(document.getElementById("c").value);
 
-      if (x1 === null && x2 === null) {
-          document.getElementById('message').innerText = 'No real roots';
-      } else {
-          document.getElementById('x1').innerText = x1.toFixed(3);
-          document.getElementById('x2').innerText = x2.toFixed(3);
-      }
-  })
-  document.getElementById('resetButton').addEventListener('click', resetForm);
+    if (isNaN(a) || isNaN(b) || isNaN(c)) {
+      return 1;
+    }
+
+    const listValuesBhaskara = bhaskara(a, b, c);
+    const x1 = listValuesBhaskara[0];
+    const x2 = listValuesBhaskara[1];
+
+    if (x1 === null && x2 === null) {
+      /*document.getElementById("message").innerText = "No real roots";*/
+      document.getElementById("x1").innerText = "No Real Roots";
+      document.getElementById("x2").innerText = "No Real Roots";
+    } else {
+      document.getElementById("x1").innerText = x1.toFixed(3);
+      document.getElementById("x2").innerText = x2.toFixed(3);
+    }
+  });
+  document.getElementById("resetButton").addEventListener("click", resetForm);
 }
 
 main();
